@@ -1,0 +1,61 @@
+Linux Filesystem: Cheat Sheet
+[ ] Phase 2: Linux basics · Exercises 1 to 10 · Sandbox: ~/practice on the Ubuntu VM
+Golden rules
+• pwd before every rm. Know where you are before you delete anything.
+• Backup first, edit second. cp the file before you change it.
+• Read the error. It names the problem: a typo, a missing space, 1 instead of l.
+• Spaces separate the parts of a command. A missing one makes a mystery option.
+• One > replaces, >> adds. Redirecting into a file overwrites it.
+• Tab completes names. If Tab does nothing, the name doesn't exist.
+• Practice on fake data in a sandbox. No real passwords or company data in files or Git.
+• No shortcuts that hurt. Never chmod 777, never rm -rf with sudo, only run scripts you understand.
+1. Orient yourself
+Where am I, and what is here?
+• pwd
+• ls -la
+• cd ~
+2. Explore the Linux map
+Visit the key system folders and see what lives there.
+• cd /etc then ls
+• cd /var/log then ls
+• cd /home and cd /tmp
+3. Build a project folder structure
+Create a whole workspace tree in one command.
+• mkdir -p ~/practice/myapp/{config,logs,scripts,backup}
+• ls -R ~/practice
+4. Create and inspect files
+Create a file, write text into it, read it back.
+• touch config/app.conf
+• echo "port=8080" > config/app.conf
+• cat config/app.conf
+5. Copy before you change
+Make a backup (source first, destination second).
+• cp config/app.conf backup/app.conf.bak
+• ls backup/
+6. Move and rename
+Move a misplaced log into logs/ and rename it in one step.
+• mv app.log logs/app-2026-10-30.log
+• ls logs/
+7. Find a lost file
+Search every subfolder instead of opening them one by one.
+• find ~/practice -name "*.conf"
+• find ~/practice -name "*.log"
+8. Read logs without opening everything
+Count lines, then look at the start and the end only.
+• seq 1 20 > logs/test.log
+• wc -l logs/test.log
+• head -n 5 logs/test.log
+• tail -n 5 logs/test.log
+9. Permissions
+Fix "Permission denied" by adding execute permission.
+• ls -l scripts/
+• ./scripts/hello.sh (fails)
+• chmod +x scripts/hello.sh
+• ./scripts/hello.sh (prints Hello)
+10. Safe cleanup
+Practice deleting on a copy, after checking where you are.
+• cp -r ~/practice ~/practice-trash
+• pwd
+• rm logs/test.log
+• cd ~
+• rm -r practice-trash
