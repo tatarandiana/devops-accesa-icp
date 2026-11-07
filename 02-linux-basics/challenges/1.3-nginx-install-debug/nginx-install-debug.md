@@ -19,6 +19,15 @@
 
 ---
 
+#	Scenario	                                  Symptom	                                             Tool that found it	                                       Fix
+1	Clock skew	                apt update rejected the catalog: “not valid yet”	                 timedatectl, chronyc tracking	                     sudo chronyc makestep
+2	Port conflict	               nginx wouldn’t start: Address already in use	                       sudo ss -tlnp | grep :80	                     sudo systemctl disable --now apache2
+3	Wrong page served	           nginx answered, but handed out Apache’s brochure	                     curl -I size vs ls -l	                    mv index.html index.html.apache-backup
+4	Duplicate default_server	   [emerg] duplicate default server for 0.0.0.0:80	                 sudo nginx -t	                                  rm the backup from sites-enabled/
+5	Missing semicolon	            invalid parameter "listen"	                                         nginx -t + sed -n '22,24p'                   nano, added the ;
+
+---
+
 ## Red thread (the hotel metaphor)
 
 - **nginx** = the receptionist. **Port 80** = the door she stands at. Only one person can hold a door.
